@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 2.6)
 set (PROJECT RunningMan)
 
 project (${PROJECT})
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set (HEADERS
     )
@@ -14,7 +15,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/include)
 
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86)
 
-add_executable(${PROJECT} ${HEADERS} ${SOURCES})
+add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
 
 target_link_libraries(${PROJECT} SDL SDLmain)
 
@@ -27,4 +28,12 @@ if (MSVC)
 		  string(REGEX REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
 	   endif(${flag_var} MATCHES "/MT")
 	endforeach(flag_var)
+    # SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows") 
+    # set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
+    # set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
 endif (MSVC)
+
+ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+          POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
+)
