@@ -1,7 +1,44 @@
 #include <SDL.h>
 #include <iostream>
+#include <vector>
+
+#include "GameField.h"
 
 using namespace std;
+
+class Screen;
+class Position;
+class Direction;
+
+class Sprite
+{
+public:
+	void DrawAt(Screen& aScreen, const Position& aOrigin);
+	void SetDirection(const Direction& aDirection);
+private:
+};
+
+class StaticSprite
+{
+public:
+	void DrawAt(Screen& aScreen, const Position& aOrigin);
+};
+
+
+class Rect;
+
+
+class GameWorld
+{
+};
+
+class GameViewFrame
+{
+public:
+	void SetPosition(const Position& aPosition);
+	void SetViewDirection(const Direction& aDirection);
+	void GetObjectsInZOrder();
+};
 
 void showSdlSurface()
 {
@@ -48,6 +85,11 @@ void showSdlSurface()
 
 int main(int argc, char* argv[])
 {
+	GameField gf(10, 10, 3.0f);
+	CellPosition pos = gf.getNearestCell(Point(6.5, 3.5));
+	pos = gf.getNearestCell(Point(2.5f, 3.5f));
+	pos = gf.getNearestCell(Point(2.5f, 2.5f));
+
 	showSdlSurface();
 	
 	return 0;

@@ -6,9 +6,13 @@ project (${PROJECT})
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set (HEADERS
+	BasicStructs.h
+	GameField.h
     )
     
 set (SOURCES
+	BasicStructs.cpp
+	GameField.cpp
     main.cpp)
     
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/include)

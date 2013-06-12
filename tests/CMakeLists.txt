@@ -6,10 +6,12 @@ project (${PROJECT})
 
 set (SOURCES
     Test.cpp
-    ../src/HelloFunctions.cpp)
+    ../src/GameField.cpp
+	../src/BasicStructs.cpp)
     
 set (HEADERS
-    ../src/HelloFunctions.h)
+    ../src/GameField.h
+	../src/BasicStructs.h)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/include)
 
