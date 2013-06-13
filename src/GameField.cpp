@@ -7,7 +7,7 @@ GameField::GameField(int aWidth, int aHeight, float aCellDiagonal)
 {
 }
 
-Point GameField::cellPositionToCoord(const CellPosition aPosition)
+Point GameField::cellPositionToCoord(const CellPosition& aPosition)
 {
 	Point p;
 	p.x = (aPosition.col * 2 + aPosition.row % 2) / 2.0f * myCellDiagonal ;
@@ -40,4 +40,9 @@ CellPosition GameField::getNearestCell(const Point& aPoint)
 	}
 	
 	return pos;
+}
+
+SurfaceElement	GameField::getCellSurface(const CellPosition& aPosition)
+{
+	return Surface_Sand;
 }

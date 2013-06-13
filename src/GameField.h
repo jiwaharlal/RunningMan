@@ -18,9 +18,10 @@ public:
 	//SurfaceElement	getSurfaceAt(int aCellX, int aCellY);
 	//void			getSurfaceCellsInRect(const Rect& aTargetRect, std::vector<SurfaceElement> aCells);
 	
-	Point			cellPositionToCoord(const CellPosition aPosition);
+	Point			cellPositionToCoord(const CellPosition& aPosition);
 	CellPosition	cellCoordToPosition(const Point& aPoint);
 	CellPosition	getNearestCell(const Point& aPoint);
+	SurfaceElement	getCellSurface(const CellPosition& aPosition);
 
 private:
 	int											myWidth;
