@@ -4,18 +4,20 @@
 
 #include "BasicStructs.h"
 
+class GameField;
+
 class GameViewFrame
 {
 public:
-						GameViewFrame(GameField& aField, SDL_Surface* aScreen, float aPixelsPerMeter, const Point& aLeftBottom);
-	void				setPosition(const Point& aLeftBottom);
+						GameViewFrame(GameField& aField, SDL_Surface* aScreen, float aPixelsPerMeter, const Position& aLeftBottom);
+	void				setPosition(const Position& aLeftBottom);
 	void				render();
 private:
 	void				defineRenderRange();
 
 	struct RenderRange
 	{
-		int bottmRow;
+		int bottomRow;
 		int topRow;
 		int leftColumn;
 		int rightColumn;
@@ -23,7 +25,7 @@ private:
 
 	GameField&			myField;
 	SDL_Surface*		myScreen;
-	Point				myLeftBottom;
+	Position				myLeftBottom;
 	float				myPixelsPerMeter;
 	RenderRange			myRenderRange;
 };

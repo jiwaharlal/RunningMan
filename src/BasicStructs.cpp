@@ -1,9 +1,9 @@
 #include "BasicStructs.h"
 
-Point::Point()
+FloatPosition::FloatPosition()
 {}
 
-Point::Point(float aX, float aY)
+FloatPosition::FloatPosition(float aX, float aY)
 	: x(aX), y(aY)
 {
 }
@@ -17,7 +17,7 @@ namespace basic_structs
 	}
 }
 
-bool Point::operator ==(const Point& rhs)
+bool FloatPosition::operator ==(const FloatPosition& rhs)
 {
 	return basic_structs::floatEqual(x, rhs.x) && basic_structs::floatEqual(y, rhs.y);
 }
@@ -33,4 +33,13 @@ CellPosition::CellPosition(int aRow, int aCol)
 bool CellPosition::operator ==(const CellPosition& rhs)
 {
 	return row == rhs.row && col == rhs.col;
+}
+
+Position::Position(int aX, int aY)
+	: x(aX), y(aY)
+{
+}
+
+Position::Position()
+{
 }

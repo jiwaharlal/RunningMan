@@ -48,6 +48,7 @@ void showSdlSurface()
 		return;
 	}
 	SDL_Surface* scr = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
+	
 	if (!scr)
 	{
 		cout << "error creating SDL screen" << endl;
@@ -86,9 +87,9 @@ void showSdlSurface()
 int main(int argc, char* argv[])
 {
 	GameField gf(10, 10, 3.0f);
-	CellPosition pos = gf.getNearestCell(Point(6.5, 3.5));
-	pos = gf.getNearestCell(Point(2.5f, 3.5f));
-	pos = gf.getNearestCell(Point(2.5f, 2.5f));
+	CellPosition pos = gf.getNearestCell(FloatPosition(6.5, 3.5));
+	pos = gf.getNearestCell(FloatPosition(2.5f, 3.5f));
+	pos = gf.getNearestCell(FloatPosition(2.5f, 2.5f));
 
 	showSdlSurface();
 	

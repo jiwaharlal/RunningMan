@@ -1,12 +1,13 @@
 #pragma once
 
-struct Point
+struct FloatPosition
 {
-	Point();
-	Point(float aX, float aY);
-	bool operator ==(const Point& rhs);
-	float x;
-	float y;
+	FloatPosition();
+	FloatPosition(float aX, float aY);
+	bool operator ==(const FloatPosition& rhs);
+	
+	float	x;
+	float	y;
 };
 
 struct CellPosition
@@ -14,6 +15,28 @@ struct CellPosition
 	CellPosition();
 	CellPosition(int aRow, int aCol);
 	bool operator ==(const CellPosition& rhs);
-	int row;
-	int col;
+	
+	int		row;
+	int		col;
+};
+
+struct Position
+{
+	Position();
+	Position(int aX, int aY);
+
+	int		x;
+	int		y;
+};
+
+struct Size
+{
+	int		height;
+	int		width;
+};
+
+struct Rect
+{
+	Position	pos;
+	Size		size;
 };

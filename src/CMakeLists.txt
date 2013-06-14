@@ -9,17 +9,23 @@ set (HEADERS
 	BasicStructs.h
 	GameField.h
 	GameViewFrame.h
+	Singleton.h
+	SpriteProvider.h
     )
     
 set (SOURCES
 	BasicStructs.cpp
 	GameField.cpp
 	GameViewFrame.cpp
-    main.cpp)
+    main.cpp
+	SpriteProvider.cpp
+	)
     
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/include
+					d:/libs/boost_1_53_0)
 
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86
+				d:/libs/boost_1_53_0/lib)
 
 add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
 

@@ -1,15 +1,9 @@
 #pragma once
 
-#include "BasicStructs.h"
 #include <vector>
 
-enum SurfaceElement 
-{
-	Surface_Emptyness = 0,
-	Surface_Grass = 1,
-	Surface_Soil = 2,
-	Surface_Sand = 3
-};
+#include "BasicStructs.h"
+#include "Surface.h"
 
 class GameField
 {
@@ -18,9 +12,9 @@ public:
 	//SurfaceElement	getSurfaceAt(int aCellX, int aCellY);
 	//void			getSurfaceCellsInRect(const Rect& aTargetRect, std::vector<SurfaceElement> aCells);
 	
-	Point			cellPositionToCoord(const CellPosition& aPosition);
-	CellPosition	cellCoordToPosition(const Point& aPoint);
-	CellPosition	getNearestCell(const Point& aPoint);
+	FloatPosition	cellPositionToCoord(const CellPosition& aPosition);
+	CellPosition	cellCoordToPosition(const FloatPosition& aPosition);
+	CellPosition	getNearestCell(const FloatPosition& aPosition);
 	SurfaceElement	getCellSurface(const CellPosition& aPosition);
 
 private:
