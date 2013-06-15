@@ -1,21 +1,28 @@
 cmake_minimum_required (VERSION 2.6)
 
+SET(CMAKE_CXX_FLAGS "-std=c++11")
+add_definitions(-std=c++11)
+
 set (PROJECT Test)
+
+add_subdirectory(gtest-1.6.0)
 
 project (${PROJECT})
 
 set (SOURCES
     Test.cpp
-    ../src/GameField.cpp
-	../src/BasicStructs.cpp)
-    
+    ${PROJECT_SOURCE_DIR}/../src/GameField.cpp
+    ${PROJECT_SOURCE_DIR}/../src/BasicStructs.cpp)
+
 set (HEADERS
-    ../src/GameField.h
-	../src/BasicStructs.h)
+    ${PROJECT_SOURCE_DIR}/../src/GameField.h
+    ${PROJECT_SOURCE_DIR}/../src/BasicStructs.h)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/include)
-
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/lib/${CMAKE_CFG_INTDIR})
+if (MSVC)
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/include)
+  link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/lib/${CMAKE_CFG_INTDIR})
+  target_link_libraries(${PROJECT} gtest)
+endif (MSVC)
 
 # if(${CMAKE_CFG_INTDIR} MATCHES "Debug")
     # target_link_libraries(${PROJECT} gtestd)
@@ -25,6 +32,12 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/lib/${CMAKE_CFG
 
 add_executable(${PROJECT} ${HEADERS} ${SOURCES})
 
+
+include_directories(${gtest_INCLUDE_DIR})
+target_link_libraries (${PROJECT} ${gtest_LIBRARY})
+ADD_DEPENDENCIES(${PROJECT} gtest gtest_main)
+
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/gtest-1.6.0)
 target_link_libraries(${PROJECT} gtest)
 
 add_definitions(-D_VARIADIC_MAX=10)

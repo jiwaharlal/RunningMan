@@ -2,6 +2,10 @@
 
 //Inherit from Singleton this class to get a thread safe singleton GetInstance() method.
 
+#ifndef uint32
+typedef unsigned int uint32;
+#endif
+
 template<typename T>
 void Delete(T* aInstance)
 {
@@ -16,23 +20,23 @@ public:
 	{
 		static volatile uint32 control = 0;
 
-		for(;;) 
+		for(;;)
 		{
 			uint32 prev = AtomicCompareSwap(control, 1, 0);
-			if (2 == prev) 
+			if (2 == prev)
 			{
 				//Do nothing, the static pointers have been initialized
 				break;
 			}
-			else if (0 == prev) 
-			{			
+			else if (0 == prev)
+			{
 				mySingletonInstance = new C();
 				//					ourSingletonDeleter.RegisterSingletonToDelete(mySingletonInstance);
 				control = 2;
 
 				break;
 			}
-			else 
+			else
 			{
 				// Another thread is initializing the singleton:
 				// must wait.

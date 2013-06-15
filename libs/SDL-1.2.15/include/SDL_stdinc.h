@@ -584,7 +584,7 @@ extern DECLSPEC int SDLCALL SDL_vsnprintf(char *text, size_t maxlen, const char 
 #endif
 
 /** @name SDL_ICONV Error Codes
- *  The SDL implementation of iconv() returns these error codes 
+ *  The SDL implementation of iconv() returns these error codes
  */
 /*@{*/
 #define SDL_ICONV_ERROR		(size_t)-1

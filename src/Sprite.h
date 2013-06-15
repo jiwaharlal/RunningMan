@@ -1,6 +1,12 @@
 #pragma once
 
+#ifdef __linux__
+#include <SDL/SDL.h>
+#else
 #include <SDL.h>
+#endif
+#include <string>
+#include <boost/shared_ptr.hpp>
 
 #include "BasicStructs.h"
 
@@ -10,7 +16,7 @@ class Sprite
 {
 public:
 						Sprite(
-							const std::string&			aImageName, 
+							const std::string&			aImageName,
 							const Position&				aLeftBottom,
 							int							aImgHeight,
 							int							aImgWidth,

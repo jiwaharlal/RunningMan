@@ -1,5 +1,5 @@
-#include "..\src\GameField.h"
-#include "gtest\gtest.h"
+#include "../src/GameField.h"
+#include "gtest/gtest.h"
 #include <string>
 
 bool floatEqual(float lhs, float rhs)
@@ -8,7 +8,7 @@ bool floatEqual(float lhs, float rhs)
 	return lhs + epsilon > rhs && lhs - epsilon < rhs;
 }
 
-class RMTest : public ::testing::Test 
+class RMTest : public ::testing::Test
 {
 };
 

@@ -15,11 +15,11 @@ FloatPosition GameField::cellPositionToCoord(const CellPosition& aPosition)
 
 	return p;
 }
-	
+
 CellPosition GameField::cellCoordToPosition(const FloatPosition& aPosition)
 {
 	CellPosition pos;
-	
+
 	pos.row = static_cast<int>((aPosition.y * 2.0f) / myCellDiagonal);
 	pos.col = static_cast<int>((aPosition.x / myCellDiagonal * 2.0f - pos.row % 2) / 2);
 
@@ -29,7 +29,7 @@ CellPosition GameField::cellCoordToPosition(const FloatPosition& aPosition)
 CellPosition GameField::getNearestCell(const FloatPosition& aPosition)
 {
 	float rowInterpolation = (aPosition.y * 2.0f) / myCellDiagonal;
-	float colInterpolation = (aPosition.x / myCellDiagonal * 2.0f - static_cast<int>(floor(rowInterpolation + 0.5)) % 2) / 2;
+	float colInterpolation = (aPosition.x / myCellDiagonal * 2.0f - static_cast<int>(rowInterpolation + 0.5) % 2) / 2;
 
 	CellPosition pos(static_cast<int>(rowInterpolation), static_cast<int>(colInterpolation));
 	if (rowInterpolation - static_cast<float>(pos.row) > 0.5f) {
@@ -38,7 +38,7 @@ CellPosition GameField::getNearestCell(const FloatPosition& aPosition)
 	if (colInterpolation - static_cast<float>(pos.col) > 0.5f) {
 		pos.col += 1;
 	}
-	
+
 	return pos;
 }
 

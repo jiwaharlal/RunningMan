@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef __linux__
+#include <SDL/SDL.h>
+#else
 #include <SDL.h>
+#endif
 
 #include "BasicStructs.h"
 
