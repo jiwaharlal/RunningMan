@@ -1,0 +1,1 @@
+print "Hi from collect program files!"

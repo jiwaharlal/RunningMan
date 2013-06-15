@@ -15,11 +15,25 @@ public:
 					SdlBitmap(
 						const std::string&		aFileName);
 	void			drawTo(
-						SDL_Surface&			aTargetSurface);
+						SDL_Surface*			aTargetSurface);
 	void			drawTo(
-						SDL_Surface&			aTargetSurface,
+						SDL_Surface*			aTargetSurface,
 						const Position&			aScreenPos,
 						const Rect&				aBitmapRect);
+    SDL_Surface&    surface();
 private:
+    class SdlFrame
+    {
+    public:
+                            SdlFrame(SDL_Surface* aSurface, const Rect& aBorders);
+        uint32_t&           pixel(int x, int y);
+        const uint32_t&     pixel(int x, int y) const;
+    private:
+        SDL_Surface*    mySurface;
+        int             myLeft;
+        int             myTop;
+        int             myHeight;
+        int             myWidth;
+    };
 	SDL_Surface*		mySurface;
 };

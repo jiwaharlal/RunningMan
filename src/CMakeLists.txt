@@ -39,7 +39,21 @@ if (SDL_FOUND)
     target_link_libraries (helloworld ${SDL_LIBRARY})
 endif (SDL_FOUND)
 
-target_link_libraries(${PROJECT} SDL SDLmain)
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+if (Boost_FOUND)
+    MESSAGE(boost found)
+endif (Boost_FOUND)
+
+foreach(lib ${Boost_LIBRARIES})
+    message(${lib})
+endforeach(lib)
+
+target_link_libraries(
+    ${PROJECT}
+    SDL
+    SDLmain
+    SDL_image
+    ${Boost_LIBRARIES})
 
 if (MSVC)
 	# static link with runtime library
@@ -61,3 +75,15 @@ if (WIN32)
               COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
     )
 endif (WIN32)
+
+ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} create_directory ${CMAKE_BINARY_DIR}/data)
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/data)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../data/ DESTINATION ${CMAKE_BINARY_DIR}/data)
+
+
+ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../data ${CMAKE_BINARY_DIR}/data)
