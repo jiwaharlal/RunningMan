@@ -43,3 +43,29 @@ Position::Position(int aX, int aY)
 Position::Position()
 {
 }
+
+Size::Size()
+{
+}
+
+Size::Size(int aWidth, int aHeight)
+    : height(aHeight)
+    , width(aWidth)
+{
+}
+
+Rect::Rect()
+{
+}
+
+Rect::Rect(const Position& aLeftBottom, const Size& aSize)
+    : pos(aLeftBottom)
+    , size(aSize)
+{
+}
+
+Rect::Rect(int aLeft, int aBottom, int aWidth, int aHeight)
+    : pos(aLeft, aBottom)
+    , size(aWidth, aHeight)
+{
+}

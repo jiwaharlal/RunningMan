@@ -17,11 +17,8 @@ class Sprite
 public:
 						Sprite(
 							const std::string&			aImageName,
-							const Position&				aLeftBottom,
-							int							aImgHeight,
-							int							aImgWidth,
-							int							aImgOriginX,
-							int							aImgOriginY);
+							const Rect&                 aImageRect,
+							const Position&             aOrigin);
 	void				renderTo(
 							SDL_Surface*				aSurface,
 							const Position&				aPosition);

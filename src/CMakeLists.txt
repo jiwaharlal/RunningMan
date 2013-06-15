@@ -9,15 +9,18 @@ set (HEADERS
 	BasicStructs.h
 	GameField.h
 	GameViewFrame.h
-	Singleton.h
-	SpriteProvider.h
-    )
+	SdlBitmap.h
+	Sprite.h
+    SpriteProvider.h
+	)
 
 set (SOURCES
 	BasicStructs.cpp
 	GameField.cpp
 	GameViewFrame.cpp
 	main.cpp
+	SdlBitmap.cpp
+	Sprite.cpp
 	SpriteProvider.cpp
 	)
 
@@ -52,7 +55,9 @@ if (MSVC)
     # set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
 endif (MSVC)
 
-ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-          POST_BUILD
-          COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
-)
+if (WIN32)
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+              POST_BUILD
+              COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
+    )
+endif (WIN32)

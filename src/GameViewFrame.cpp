@@ -1,14 +1,16 @@
 #include "GameViewFrame.h"
 
+#include <boost/shared_ptr.hpp>
+
 #include "GameField.h"
 #include "Sprite.h"
 #include "SpriteProvider.h"
 
 GameViewFrame::GameViewFrame(
-	GameField&				aField, 
-	SDL_Surface*			aScreen, 
-	float					aPixelsPerMeter, 
-	const Position&			aLeftBottom)
+	GameField&				aField,
+	SDL_Surface*			aScreen,
+	float					aPixelsPerMeter,
+	const FloatPosition&	aLeftBottom)
 	: myField(aField)
 	, myScreen(aScreen)
 	, myPixelsPerMeter(aPixelsPerMeter)
@@ -17,13 +19,13 @@ GameViewFrame::GameViewFrame(
 }
 
 void
-GameViewFrame::setPosition(const Position& aLeftBottom)
+GameViewFrame::setPosition(const FloatPosition& aLeftBottom)
 {
 	myLeftBottom = aLeftBottom;
 }
 
 void
-GameViewFrame::render()
+GameViewFrame::render(SDL_Surface* aSurface)
 {
 	defineRenderRange();
 	for (int row = myRenderRange.topRow; row >= myRenderRange.bottomRow; --row)
@@ -32,10 +34,10 @@ GameViewFrame::render()
 		{
 			CellPosition pos(row, col);
 			SurfaceElement surface = myField.getCellSurface(pos);
-			Position p = myField.cellPositionToCoord(pos);
-			Sprite& sprite = SpriteProvider::getInstance().getSpriteForSurface(sufrace);
+			FloatPosition p = myField.cellPositionToCoord(pos);
+			SharedPtr(Sprite) sprite = SpriteProvider::getInstance().getSpriteForSurface(surface);
 			Position screenPos = fieldToScreen(p);
-			sprite->renderAt(screenPos);
+			sprite->renderTo(aSurface, screenPos);
 		}
 	}
 }
@@ -44,10 +46,9 @@ void
 GameViewFrame::defineRenderRange()
 {
 	CellPosition leftBottomCell = myField.getNearestCell(myLeftBottom);
-	myScreen.h
 }
 
 Position
-GameViewFrame::fieldToScreen(const Position& aPosition)
+GameViewFrame::fieldToScreen(const FloatPosition& aPosition)
 {
 }

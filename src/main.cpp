@@ -1,4 +1,8 @@
+#ifdef __linux__
+#include <SDL/SDL.h>
+#else
 #include <SDL.h>
+#endif
 #include <iostream>
 #include <vector>
 
@@ -48,7 +52,7 @@ void showSdlSurface()
 		return;
 	}
 	SDL_Surface* scr = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
-	
+
 	if (!scr)
 	{
 		cout << "error creating SDL screen" << endl;
@@ -92,6 +96,6 @@ int main(int argc, char* argv[])
 	pos = gf.getNearestCell(FloatPosition(2.5f, 2.5f));
 
 	showSdlSurface();
-	
+
 	return 0;
 }
