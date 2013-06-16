@@ -8,12 +8,14 @@
 #include <stdio.h>
 
 #include <boost/filesystem/operations.hpp>
-
 #include <boost/filesystem/path.hpp>
 
-
+#include "BitmapProvider.h"
 #include "GameField.h"
+#include "Paths.h"
 #include "SdlBitmap.h"
+#include "Sprite.h"
+#include "SpriteProvider.h"
 
 using namespace std;
 namespace fs = boost::filesystem;
@@ -34,46 +36,19 @@ void showSdlSurface(const std::string& aFileName)
 	}
 	SDL_WM_SetCaption("sdl window", NULL);
 
-    /*fs::path full_path( fs::initial_path<fs::path>() );
-    //full_path = fs::system_complete( fs::path( argv[0] ) );
-    fs::path programPath(fs::absolute(full_path).remove_filename());
-    programPath /= "data";
-    programPath /= "img";
-    programPath /= "argres.png";*/
     SDL_FillRect(scr, NULL, SDL_MapRGB(scr->format, 0, 55, 0));
 
     try {
-        SdlBitmap bmp(aFileName);
-        //bmp.drawTo(scr, Position(10, 10), Rect(0, 0, bmp.surface().w, bmp.surface().h));
-        SDL_Rect srcRect;
-        SDL_Rect destRect;
-        srcRect.x = 0;
-        srcRect.y = 0;
-        srcRect.h = 200;
-        srcRect.w = 200;
-        destRect.x = 100;
-        destRect.y = 100;
-        destRect.h = 300;
-        destRect.w = 300;
-        SDL_BlitSurface(&bmp.surface(), &srcRect, scr, &destRect);
-        srcRect.y = 200;
-        srcRect.x = 200;
-        SDL_BlitSurface(&bmp.surface(), &srcRect, scr, &destRect);
+        SharedPtr(SdlBitmap) bmp = BitmapProvider::getInstance().getBitmap("arbres.png");
+        bmp->drawTo(scr, Position(10, 10), Rect(0, 0, bmp->surface().w, bmp->surface().h));
     } catch(...) {
         cout << "Error loading image" << endl;
         exit(0);
     }
 
-    /*
-	for (int row = 0; row < 100; row++)
-	{
-		for (int col = 0; col < 100; col++)
-		{
-			Uint32* pixel = (Uint32*)scr->pixels + (row * scr->pitch / 4) + col;
-			*pixel = 65536 * 255; // red
-		}
-	}
-    */
+    SharedPtr(Sprite) sprite = SpriteProvider::getInstance().getSpriteForSurface(Surface_Sand);
+    sprite->renderTo(scr, Position(300, 300));
+
 	//pause until you press escape and meanwhile redraw screen
 	SDL_Event event;
 	int done = 0;
@@ -95,8 +70,9 @@ void showSdlSurface(const std::string& aFileName)
 
 int main(int argc, char* argv[])
 {
-    fs::path full_path( fs::initial_path<fs::path>() );
-    full_path = fs::system_complete( fs::path( argv[0] ) );
+    Paths::getInstance().setProgramPath(argv[0]);
+    //fs::path full_path( fs::initial_path<fs::path>() );
+    fs::path full_path = fs::system_complete( fs::path( argv[0] ) );
     fs::path programPath(fs::absolute(full_path).remove_filename());
     programPath /= "data";
     programPath /= "img";

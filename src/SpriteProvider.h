@@ -6,12 +6,17 @@
 #include "Surface.h"
 #include "Sprite.h"
 
+class SpriteInfoProvider;
+
 class Sprite;
 
 class SpriteProvider
 {
 public:
-    static SpriteProvider&             getInstance();
+    static SpriteProvider&      getInstance();
 
-	boost::shared_ptr<Sprite>			getSpriteForSurface(SurfaceElement aSurface);
+	SharedPtr(Sprite)			getSpriteForSurface(SurfaceElement aSurface);
+private:
+                                SpriteProvider();
+    SharedPtr(SpriteInfoProvider)   myInfoProvider;
 };

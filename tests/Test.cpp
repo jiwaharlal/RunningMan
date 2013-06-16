@@ -1,6 +1,8 @@
-#include "../src/GameField.h"
 #include "gtest/gtest.h"
 #include <string>
+
+#include "../src/GameField.h"
+#include "../src/Paths.h"
 
 bool floatEqual(float lhs, float rhs)
 {
@@ -31,6 +33,15 @@ TEST_F(RMTest, CheckGameFieldNearestCell)
 	ASSERT_TRUE(gf.getNearestCell(FloatPosition(6.5, 3.5)) == CellPosition(2, 2));
 	ASSERT_TRUE(gf.getNearestCell(FloatPosition(7, 4)) == CellPosition(3, 2));
 }
+
+/*TEST_F(RMTest, CheckPaths)
+{
+    #ifdef __linux__
+    std::string progPath("/home/Documents/Projects/rm");
+    #else
+    std::string
+    Paths::getInstance().setProgramPath()
+}*/
 
 int main(int argc, char* argv[])
 {

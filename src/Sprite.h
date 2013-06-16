@@ -23,5 +23,7 @@ public:
 							SDL_Surface*				aSurface,
 							const Position&				aPosition);
 private:
-	boost::shared_ptr<SdlBitmap>		myBitmap;
+	SharedPtr(SdlBitmap)	myBitmap;
+	Rect                    myImageRect;
+	Position                myOrigin;
 };

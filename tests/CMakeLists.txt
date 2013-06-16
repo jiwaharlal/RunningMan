@@ -11,12 +11,16 @@ project (${PROJECT})
 
 set (SOURCES
     Test.cpp
+    ${PROJECT_SOURCE_DIR}/../src/BasicStructs.cpp
     ${PROJECT_SOURCE_DIR}/../src/GameField.cpp
-    ${PROJECT_SOURCE_DIR}/../src/BasicStructs.cpp)
+    ${PROJECT_SOURCE_DIR}/../src/Paths.cpp
+    )
 
 set (HEADERS
+    ${PROJECT_SOURCE_DIR}/../src/BasicStructs.h
     ${PROJECT_SOURCE_DIR}/../src/GameField.h
-    ${PROJECT_SOURCE_DIR}/../src/BasicStructs.h)
+    ${PROJECT_SOURCE_DIR}/../src/Paths.cpp
+    )
 
 if (MSVC)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/include)

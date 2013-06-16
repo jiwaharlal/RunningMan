@@ -1,20 +1,23 @@
 #include "GameViewFrame.h"
 
+#include <boost/numeric/ublas/vector.hpp>
 #include <boost/shared_ptr.hpp>
 
 #include "GameField.h"
 #include "Sprite.h"
 #include "SpriteProvider.h"
 
+namespace ublas = boost::numeric::ublas;
+
 GameViewFrame::GameViewFrame(
 	GameField&				aField,
 	SDL_Surface*			aScreen,
 	float					aPixelsPerMeter,
-	const FloatPosition&	aLeftBottom)
+	const FloatPosition&	aLeftTop)
 	: myField(aField)
 	, myScreen(aScreen)
 	, myPixelsPerMeter(aPixelsPerMeter)
-	, myLeftBottom(aLeftBottom)
+	, myLeftTop(aLeftTop)
 {
 }
 
@@ -51,4 +54,10 @@ GameViewFrame::defineRenderRange()
 Position
 GameViewFrame::fieldToScreen(const FloatPosition& aPosition)
 {
+}
+
+void
+GameViewFrame::createTransformationMatrixes()
+{
+
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/shared_ptr.hpp>
+
 #define SharedPtr(X) boost::shared_ptr<X>
 
 struct FloatPosition
@@ -41,8 +43,8 @@ struct Size
 
 struct Rect
 {
-    Rect(const Position& aLeftBottom, const Size& aSize);
-    Rect(int aLeft, int aBottom, int aWidht, int aHeight);
+    Rect(const Position& aLeftTop, const Size& aSize);
+    Rect(int aLeft, int aTop, int aWidht, int aHeight);
     Rect();
 	Position	pos;
 	Size		size;

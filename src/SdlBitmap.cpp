@@ -2,6 +2,7 @@
 
 #include <SDL/SDL_image.h>
 #include <exception>
+#include <iostream>
 
 SdlBitmap::SdlBitmap(
     const std::string&		aFileName)
@@ -9,8 +10,15 @@ SdlBitmap::SdlBitmap(
     mySurface = IMG_Load(aFileName.c_str());
     if ( !mySurface )
     {
-        throw std::exception();
+        throw ErrorLoadingImage();
     }
+    std::cout << "Image loaded SdlBitmap::SdlBitmap" << std::endl;
+}
+
+SdlBitmap::~SdlBitmap()
+{
+    std::cout << "In bitmap destructor" << std::endl;
+    SDL_FreeSurface(mySurface);
 }
 
 void
@@ -25,7 +33,17 @@ SdlBitmap::drawTo(
     const Position&			aScreenPos,
     const Rect&				aBitmapRect)
 {
-    SdlFrame srcFrame(mySurface, aBitmapRect);
+    SDL_Rect srcRect;
+    SDL_Rect destRect;
+    srcRect.x = aBitmapRect.pos.x;
+    srcRect.y = aBitmapRect.pos.y;
+    srcRect.h = aBitmapRect.size.height;
+    srcRect.w = aBitmapRect.size.width;
+    destRect.x = aScreenPos.x;
+    destRect.y = aScreenPos.y;
+    SDL_BlitSurface(mySurface, &srcRect, aTargetSurface, &destRect);
+
+    /*SdlFrame srcFrame(mySurface, aBitmapRect);
     SdlFrame destFrame(aTargetSurface, Rect(aScreenPos, aBitmapRect.size));
 
     for (int row = 0; row < aBitmapRect.size.height; ++row)
@@ -34,7 +52,7 @@ SdlBitmap::drawTo(
         {
             destFrame.pixel(col, row) = srcFrame.pixel(col, row);
         }
-    }
+    }*/
     /*
     SDL_Surface* src = mySurface, *dest = aTargetSurface;
     int32_t rowLimit = srcRow + aBitmapRect.size.height;

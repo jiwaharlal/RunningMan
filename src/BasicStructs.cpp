@@ -64,8 +64,8 @@ Rect::Rect(const Position& aLeftBottom, const Size& aSize)
 {
 }
 
-Rect::Rect(int aLeft, int aBottom, int aWidth, int aHeight)
-    : pos(aLeft, aBottom)
+Rect::Rect(int aLeft, int aTop, int aWidth, int aHeight)
+    : pos(aLeft, aTop)
     , size(aWidth, aHeight)
 {
 }

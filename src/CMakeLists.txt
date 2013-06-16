@@ -1,5 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 
+#SET(CMAKE_CXX_FLAGS "-std=c++11")
+#add_definitions(-std=c++11)
+
 set (PROJECT RunningMan)
 
 project (${PROJECT})
@@ -7,20 +10,27 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set (HEADERS
 	BasicStructs.h
+	BitmapProvider.h
 	GameField.h
 	GameViewFrame.h
+	Paths.h
 	SdlBitmap.h
 	Sprite.h
+	SpriteInfoProvider.h
     SpriteProvider.h
+    Surface.h
 	)
 
 set (SOURCES
 	BasicStructs.cpp
+	BitmapProvider.cpp
 	GameField.cpp
 	GameViewFrame.cpp
 	main.cpp
+	Paths.cpp
 	SdlBitmap.cpp
 	Sprite.cpp
+	SpriteInfoProvider.cpp
 	SpriteProvider.cpp
 	)
 
@@ -34,10 +44,10 @@ endif(MSVC)
 
 add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
 
-if (SDL_FOUND)
-    include_directories(${SDL_INCLUDE_DIR})
-    target_link_libraries (helloworld ${SDL_LIBRARY})
-endif (SDL_FOUND)
+#if (SDL_FOUND)
+#    include_directories(${SDL_INCLUDE_DIR})
+#    target_link_libraries (helloworld ${SDL_LIBRARY})
+#endif (SDL_FOUND)
 
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 if (Boost_FOUND)

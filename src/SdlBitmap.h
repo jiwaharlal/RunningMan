@@ -9,11 +9,17 @@
 
 #include "BasicStructs.h"
 
+class ErrorLoadingImage: public std::exception
+{
+};
+
 class SdlBitmap
 {
 public:
 					SdlBitmap(
 						const std::string&		aFileName);
+    virtual         ~SdlBitmap();
+
 	void			drawTo(
 						SDL_Surface*			aTargetSurface);
 	void			drawTo(
