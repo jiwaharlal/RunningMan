@@ -19,18 +19,43 @@ GameViewFrame::GameViewFrame(
 	, myPixelsPerMeter(aPixelsPerMeter)
 	, myLeftTop(aLeftTop)
 {
+    createTransformationMatrixes();
 }
 
 void
-GameViewFrame::setPosition(const FloatPosition& aLeftBottom)
+GameViewFrame::setPosition(const FloatPosition& aLeftTop)
 {
-	myLeftBottom = aLeftBottom;
+	myLeftTop = aLeftTop;
+    createTransformationMatrixes();
 }
 
 void
 GameViewFrame::render(SDL_Surface* aSurface)
 {
-	defineRenderRange();
+	//defineRenderRange();
+	CellPosition leftTopCell = myField.getNearestCell(myLeftTop);
+	Position screenPos;
+    CellPosition cellPos;
+	cellPos.row = leftTopCell.row;
+	do
+	{
+	    cellPos.col = leftTopCell.col;
+	    do
+	    {
+	        FloatPosition fieldPos = myField.cellPositionToCoord(cellPos);
+	        SurfaceElement surface = myField.getCellSurface(cellPos);
+			SharedPtr(Sprite) sprite = SpriteProvider::getInstance().getSpriteForSurface(surface);
+			screenPos = fieldToScreen(fieldPos);
+			sprite->renderTo(myScreen, screenPos);
+
+			cellPos.col++;
+	    }
+	    while (screenPos.x < myScreen->w && cellPos.col < myField.width());
+
+	    cellPos.row++;
+	}
+	while (screenPos.y < myScreen->h && cellPos.row < myField.height());
+    /*
 	for (int row = myRenderRange.topRow; row >= myRenderRange.bottomRow; --row)
 	{
 		for (int col = myRenderRange.leftColumn; col <= myRenderRange.rightColumn; ++col)
@@ -42,22 +67,38 @@ GameViewFrame::render(SDL_Surface* aSurface)
 			Position screenPos = fieldToScreen(p);
 			sprite->renderTo(aSurface, screenPos);
 		}
-	}
+	}*/
 }
 
 void
 GameViewFrame::defineRenderRange()
 {
-	CellPosition leftBottomCell = myField.getNearestCell(myLeftBottom);
+	CellPosition leftTopCell = myField.getNearestCell(myLeftTop);
+
 }
 
 Position
 GameViewFrame::fieldToScreen(const FloatPosition& aPosition)
 {
+    ublas::vector<double> pos(3);
+    pos(0) = aPosition.x;
+    pos(1) = aPosition.y;
+    pos(2) = 1;
+
+    ublas::vector<double> screenPos = ublas::prod(myFieldToScreenMatrix, pos);
+
+    return Position(static_cast<int>(screenPos(0)), static_cast<int>(screenPos(1)));
 }
 
 void
 GameViewFrame::createTransformationMatrixes()
 {
+    ublas::matrix<double> translation = ublas::identity_matrix<double>(3);
+    translation(0, 2) = -myLeftTop.x;
+    translation(1, 2) = -myLeftTop.y;
+    ublas::matrix<double> scale = ublas::identity_matrix<double>(3);
+    scale(0, 0) = myPixelsPerMeter;
+    scale(1, 1) = myPixelsPerMeter / 2;
 
+    myFieldToScreenMatrix = ublas::prod(scale, translation);
 }

@@ -13,12 +13,14 @@ set (SOURCES
     Test.cpp
     ${PROJECT_SOURCE_DIR}/../src/BasicStructs.cpp
     ${PROJECT_SOURCE_DIR}/../src/GameField.cpp
+    ${PROJECT_SOURCE_DIR}/../src/GameViewFrame.cpp
     ${PROJECT_SOURCE_DIR}/../src/Paths.cpp
     )
 
 set (HEADERS
     ${PROJECT_SOURCE_DIR}/../src/BasicStructs.h
     ${PROJECT_SOURCE_DIR}/../src/GameField.h
+    ${PROJECT_SOURCE_DIR}/../src/GameViewFrame.h
     ${PROJECT_SOURCE_DIR}/../src/Paths.cpp
     )
 

@@ -26,7 +26,8 @@ CellPosition GameField::cellCoordToPosition(const FloatPosition& aPosition)
 	return pos;
 }
 
-CellPosition GameField::getNearestCell(const FloatPosition& aPosition)
+CellPosition
+GameField::getNearestCell(const FloatPosition& aPosition)
 {
 	float rowInterpolation = (aPosition.y * 2.0f) / myCellDiagonal;
 	float colInterpolation = (aPosition.x / myCellDiagonal * 2.0f - static_cast<int>(rowInterpolation + 0.5) % 2) / 2;
@@ -42,7 +43,20 @@ CellPosition GameField::getNearestCell(const FloatPosition& aPosition)
 	return pos;
 }
 
-SurfaceElement	GameField::getCellSurface(const CellPosition& aPosition)
+SurfaceElement
+GameField::getCellSurface(const CellPosition& aPosition)
 {
 	return Surface_Sand;
+}
+
+int
+GameField::height() const
+{
+    return myHeight;
+}
+
+int
+GameField::width() const
+{
+    return myWidth;
 }

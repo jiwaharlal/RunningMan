@@ -11,11 +11,13 @@ public:
 					GameField(int aWidth, int aHeight, float aCellDiagonal);
 	//SurfaceElement	getSurfaceAt(int aCellX, int aCellY);
 	//void			getSurfaceCellsInRect(const Rect& aTargetRect, std::vector<SurfaceElement> aCells);
-	
+
 	FloatPosition	cellPositionToCoord(const CellPosition& aPosition);
 	CellPosition	cellCoordToPosition(const FloatPosition& aPosition);
 	CellPosition	getNearestCell(const FloatPosition& aPosition);
 	SurfaceElement	getCellSurface(const CellPosition& aPosition);
+	int             height() const;
+	int             width() const;
 
 private:
 	int											myWidth;
