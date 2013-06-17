@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 
 SET(CMAKE_CXX_FLAGS "-std=c++11")
-add_definitions(-std=c++11)
+add_definitions(-std=c++11 -D_VARIADIC_MAX=10)
 
 set (PROJECT Test)
 
@@ -27,7 +27,7 @@ set (HEADERS
 if (MSVC)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/include)
   link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/gtest-1.6.0/lib/${CMAKE_CFG_INTDIR})
-  target_link_libraries(${PROJECT} gtest)
+  # target_link_libraries(${PROJECT} gtest)
 endif (MSVC)
 
 # if(${CMAKE_CFG_INTDIR} MATCHES "Debug")

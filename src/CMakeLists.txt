@@ -34,12 +34,32 @@ set (SOURCES
 	SpriteProvider.cpp
 	)
 
+set (LIBS
+    SDL
+    SDLmain
+    SDL_image
+	)
+
 if(MSVC)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/include
                         d:/libs/boost_1_53_0)
 
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86
 				    d:/libs/boost_1_53_0/lib)
+else(MSVC)
+	find_package(Boost COMPONENTS system filesystem REQUIRED)
+	if (Boost_FOUND)
+		MESSAGE(boost found)
+	endif (Boost_FOUND)
+
+	foreach(lib ${Boost_LIBRARIES})
+		message(${lib})
+	endforeach(lib)
+
+	set(LIBS
+		${LIBS}
+		${Boost_LIBRARIES}
+		)
 endif(MSVC)
 
 add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
@@ -49,21 +69,11 @@ add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
 #    target_link_libraries (helloworld ${SDL_LIBRARY})
 #endif (SDL_FOUND)
 
-find_package(Boost COMPONENTS system filesystem REQUIRED)
-if (Boost_FOUND)
-    MESSAGE(boost found)
-endif (Boost_FOUND)
-
-foreach(lib ${Boost_LIBRARIES})
-    message(${lib})
-endforeach(lib)
 
 target_link_libraries(
     ${PROJECT}
-    SDL
-    SDLmain
-    SDL_image
-    ${Boost_LIBRARIES})
+    LIBS
+	)
 
 if (MSVC)
 	# static link with runtime library
@@ -92,7 +102,6 @@ ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/data)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../data/ DESTINATION ${CMAKE_BINARY_DIR}/data)
-
 
 ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
     POST_BUILD
