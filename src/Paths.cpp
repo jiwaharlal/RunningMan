@@ -25,6 +25,9 @@ fs::path
 Paths::getImagesPath()
 {
     fs::path result(myProgramPath);
+#ifndef __linux__
+	result /= "..";
+#endif
     result /= "data";
     result /= "img";
 

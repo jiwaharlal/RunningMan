@@ -1,6 +1,13 @@
 #include "SdlBitmap.h"
 
+#ifdef __linux__
 #include <SDL/SDL_image.h>
+#else
+#include <SDL_image.h>
+#endif
+
+#include "ImageLoader.h"
+
 #include <exception>
 #include <iostream>
 
@@ -8,6 +15,7 @@ SdlBitmap::SdlBitmap(
     const std::string&		aFileName)
 {
     mySurface = IMG_Load(aFileName.c_str());
+	//mySurface = ImageLoader::getInstance().loadImage(aFileName);
     if ( !mySurface )
     {
         throw ErrorLoadingImage();
