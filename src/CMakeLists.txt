@@ -79,12 +79,6 @@ add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
 
 ADD_DEPENDENCIES(${PROJECT} lodepng)
 
-#if (SDL_FOUND)
-#    include_directories(${SDL_INCLUDE_DIR})
-#    target_link_libraries (helloworld ${SDL_LIBRARY})
-#endif (SDL_FOUND)
-
-
 target_link_libraries(
     ${PROJECT}
     ${LIBS}
@@ -99,52 +93,25 @@ if (MSVC)
 		  string(REGEX REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
 	   endif(${flag_var} MATCHES "/MT")
 	endforeach(flag_var)
-    # SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows")
-    # set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
-    # set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:CONSOLE")
+    set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:CONSOLE")
+    set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE")
 endif (MSVC)
 
-message("hello")
-macro(CopyDllsToProgramFolder dllPathNames)
-	message("again")
-	foreach(dllPathName 
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/SDL_image.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libjpeg-8.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libpng15-15.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libtiff-5.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libwebp-2.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/zlib1.dll)
-		message(${dllPathName})
-		ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-				  POST_BUILD
-				  COMMAND ${CMAKE_COMMAND} -E copy ${dllPathName} ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR})
-	endforeach(dllPathName)
-endmacro(CopyDllsToProgramFolder)
+foreach(dllPathName 
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/SDL_image.dll
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libjpeg-8.dll
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libpng15-15.dll
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libtiff-5.dll
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libwebp-2.dll
+			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/zlib1.dll)
+	message(${dllPathName})
+	ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+				POST_BUILD
+				COMMAND ${CMAKE_COMMAND} -E copy ${dllPathName} ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR})
+endforeach(dllPathName)
 
-set(DLLS
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/SDL_image.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libjpeg-8.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libpng15-15.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libtiff-5.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libwebp-2.dll
-				${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/zlib1.dll)
-
-CopyDllsToProgramFolder(${DLLS})
-
-#if (MSVC)
-#    ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-#              POST_BUILD
-#              COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
-#              COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/SDL_image.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
-#    )
-
-#    ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-#              POST_BUILD
-#              COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/*.dll ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}
-#    )
-#endif (MSVC)
 
 #ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
 #    POST_BUILD

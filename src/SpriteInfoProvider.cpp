@@ -9,7 +9,7 @@ SpriteInfo
 SpriteInfoProvider::getSpriteInfo()
 {
     SpriteInfo sand;
-    sand.imgFileName = "arbres.png";
+    sand.imgFileName = "ground.png";
     sand.rect = Rect(276, 644, 92, 92);
     sand.origin = Position(46, 46);
 

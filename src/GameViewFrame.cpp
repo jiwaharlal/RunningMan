@@ -1,7 +1,9 @@
 #include "GameViewFrame.h"
 
 #include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/io.hpp>
 #include <boost/shared_ptr.hpp>
+#include <iostream>
 
 #include "GameField.h"
 #include "Sprite.h"
@@ -80,12 +82,12 @@ GameViewFrame::defineRenderRange()
 Position
 GameViewFrame::fieldToScreen(const FloatPosition& aPosition)
 {
-    ublas::vector<double> pos(3);
+    ublas::vector<float> pos(3);
     pos(0) = aPosition.x;
     pos(1) = aPosition.y;
     pos(2) = 1;
 
-    ublas::vector<double> screenPos = ublas::prod(myFieldToScreenMatrix, pos);
+    ublas::vector<float> screenPos = ublas::prod(myFieldToScreenMatrix, pos);
 
     return Position(static_cast<int>(screenPos(0)), static_cast<int>(screenPos(1)));
 }
@@ -93,12 +95,14 @@ GameViewFrame::fieldToScreen(const FloatPosition& aPosition)
 void
 GameViewFrame::createTransformationMatrixes()
 {
-    ublas::matrix<double> translation = ublas::identity_matrix<double>(3);
+    ublas::matrix<float> translation = ublas::identity_matrix<float>(3);
     translation(0, 2) = -myLeftTop.x;
     translation(1, 2) = -myLeftTop.y;
-    ublas::matrix<double> scale = ublas::identity_matrix<double>(3);
+	std::cout << "translation:\n" << translation << std::endl;
+    ublas::matrix<float> scale = ublas::identity_matrix<float>(3);
     scale(0, 0) = myPixelsPerMeter;
     scale(1, 1) = myPixelsPerMeter / 2;
+	std::cout << "scale:\n" << scale << std::endl;
 
     myFieldToScreenMatrix = ublas::prod(scale, translation);
 }

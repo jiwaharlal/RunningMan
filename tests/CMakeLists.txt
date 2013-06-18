@@ -82,8 +82,8 @@ endif (MSVC)
 
 GET_TARGET_PROPERTY(BIN_NAME ${PROJECT} LOCATION)
 
-# copy bin to binary folder
-ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-          POST_BUILD
-          COMMAND ${BIN_NAME}
-)
+message(${BIN_NAME})
+#ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+#          POST_BUILD
+#          COMMAND -E ${BIN_NAME}
+#)

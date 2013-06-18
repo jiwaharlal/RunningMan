@@ -117,7 +117,7 @@ void showSdlSurface(const std::string& aFileName)
 
     SDL_FillRect(scr, NULL, SDL_MapRGB(scr->format, 0, 55, 0));
 
-    try {
+    /*try {
         SharedPtr(SdlBitmap) bmp = BitmapProvider::getInstance().getBitmap("arbres.png");
         bmp->drawTo(scr, Position(10, 10), Rect(0, 0, bmp->surface().w, bmp->surface().h));
     } catch(...) {
@@ -127,12 +127,12 @@ void showSdlSurface(const std::string& aFileName)
 
     SharedPtr(Sprite) sprite = SpriteProvider::getInstance().getSpriteForSurface(Surface_Sand);
     sprite->renderTo(scr, Position(300, 300));
-    
+    */
 
-    /*GameField field(5, 5, 2.0f);
+    GameField field(5, 5, 2.0f);
     GameViewFrame frame(field, scr, 46.0f, FloatPosition(1.3f, 1.7f));
 
-    frame.render(scr);*/
+    frame.render(scr);
 
 	//pause until you press escape and meanwhile redraw screen
 	SDL_Event event;

@@ -18,6 +18,6 @@ void Sprite::renderTo(
 {
     Position drawPosition(aPosition);
     drawPosition.x -= myOrigin.x;
-    drawPosition.y += myOrigin.y;
+    drawPosition.y -= myOrigin.y;
     myBitmap->drawTo(aSurface, drawPosition, myImageRect);
 }
