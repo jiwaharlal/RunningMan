@@ -59,30 +59,35 @@ if(MSVC)
 					${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86
                     ${CMAKE_BINARY_DIR}/libs/lodepng
 				    d:/libs/boost_1_53_0/lib)
+
+    add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
 else(MSVC)
-	find_package(Boost COMPONENTS system filesystem REQUIRED)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/lodepng/include)
+
+	find_package(Boost 1.53 COMPONENTS system filesystem REQUIRED)
 	if (Boost_FOUND)
 		MESSAGE(boost found)
 	endif (Boost_FOUND)
-
-	foreach(lib ${Boost_LIBRARIES})
-		message(${lib})
-	endforeach(lib)
 
 	set(LIBS
 		${LIBS}
 		${Boost_LIBRARIES}
 		)
+
+    add_executable(${PROJECT} ${HEADERS} ${SOURCES})
 endif(MSVC)
 
-add_executable(${PROJECT} WIN32 ${HEADERS} ${SOURCES})
+message(libs:)
+foreach(lib ${LIBS})
+    message(${lib})
+endforeach(lib)
 
 ADD_DEPENDENCIES(${PROJECT} lodepng)
 
 target_link_libraries(
     ${PROJECT}
     ${LIBS}
-	)
+    )
 
 if (MSVC)
 	# static link with runtime library
@@ -96,22 +101,21 @@ if (MSVC)
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:CONSOLE")
     set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:CONSOLE")
     set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE")
+
+    foreach(dllPathName
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/SDL_image.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libjpeg-8.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libpng15-15.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libtiff-5.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libwebp-2.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/zlib1.dll)
+        message(${dllPathName})
+        ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+                    POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy ${dllPathName} ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR})
+    endforeach(dllPathName)
 endif (MSVC)
-
-foreach(dllPathName 
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL-1.2.15/lib/x86/sdl.dll
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/SDL_image.dll
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libjpeg-8.dll
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libpng15-15.dll
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libtiff-5.dll
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/libwebp-2.dll
-			${CMAKE_CURRENT_SOURCE_DIR}/../libs/SDL_image-1.2.12/lib/x86/zlib1.dll)
-	message(${dllPathName})
-	ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-				POST_BUILD
-				COMMAND ${CMAKE_COMMAND} -E copy ${dllPathName} ${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR})
-endforeach(dllPathName)
-
 
 #ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
 #    POST_BUILD

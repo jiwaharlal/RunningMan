@@ -7,8 +7,8 @@
 #include <vector>
 #include <stdio.h>
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+//#include <boost/filesystem/operations.hpp>
+//#include <boost/filesystem/path.hpp>
 
 #include "BitmapProvider.h"
 #include "GameField.h"
@@ -21,7 +21,7 @@
 #include "lodepng.h"
 
 using namespace std;
-namespace fs = boost::filesystem;
+//namespace fs = boost::filesystem;
 
 int show(const char* filename)
 {
@@ -99,7 +99,7 @@ int show(const char* filename)
   return done == 2 ? 1 : 0;
 }
 
-void showSdlSurface(const std::string& aFileName)
+void showSdlSurface(/*const std::string& aFileName*/)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -155,11 +155,18 @@ void showSdlSurface(const std::string& aFileName)
 
 int main(int argc, char* argv[])
 {
+    std::string path("root");
+    path = Paths::append(path, "subdir1");
+    std::cout << path << std::endl;
+    path = Paths::subtractLastEntry(path);
+    std::cout << path << std::endl;
+
+
 	//if(show("D:\\projects\\RunningMan\\build_vs2012\\data\\img\\arbres.png"))
 	//	return 0;
-    Paths::getInstance().setProgramPath(argv[0]);
+    Paths::getInstance().setExePathName(argv[0]);
     //fs::path full_path( fs::initial_path<fs::path>() );
-    fs::path full_path = fs::system_complete( fs::path( argv[0] ) );
+    /*fs::path full_path = fs::system_complete( fs::path( argv[0] ) );
     fs::path programPath(fs::absolute(full_path).remove_filename());
     programPath /= "data";
     programPath /= "img";
@@ -172,6 +179,7 @@ int main(int argc, char* argv[])
     } else {
         cout << "DON'T exists" << endl;
     }
+    */
     //Without file name
     //std::cout << full_path.stem() << std::endl;
 
@@ -180,7 +188,7 @@ int main(int argc, char* argv[])
 	pos = gf.getNearestCell(FloatPosition(2.5f, 3.5f));
 	pos = gf.getNearestCell(FloatPosition(2.5f, 2.5f));
 
-	showSdlSurface(programPath.string());
+	showSdlSurface(/*programPath.string()*/);
 
 	return 0;
 }

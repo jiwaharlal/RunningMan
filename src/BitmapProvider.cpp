@@ -1,11 +1,8 @@
 #include "BitmapProvider.h"
 
-#include <boost/filesystem.hpp>
 #include <iostream>
 
 #include "Paths.h"
-
-namespace fs = boost::filesystem;
 
 BitmapProvider::BitmapProvider()
 {
@@ -28,9 +25,9 @@ BitmapProvider::getBitmap(const std::string& aFileName)
     {
         return iter->second;
     }
-    fs::path fullPath = Paths::getInstance().getImagesPath();
-    fullPath /= aFileName;
-    SharedPtr(SdlBitmap) newBitmap(new SdlBitmap(fullPath.string()));
+    std::string fullPath = Paths::getInstance().getImagesPath();
+    fullPath = Paths::append(fullPath, aFileName);
+    SharedPtr(SdlBitmap) newBitmap(new SdlBitmap(fullPath));
     myBitmaps.insert(myBitmaps.begin(), std::make_pair(aFileName, newBitmap));
 
     return newBitmap;

@@ -16,7 +16,7 @@ ImageLoader::getInstance()
 	return *instance;
 }
 
-SDL_Surface*	
+SDL_Surface*
 ImageLoader::loadImage(const std::string& aFilePathName)
 {
 	std::vector<unsigned char> buffer, image;
@@ -70,7 +70,7 @@ ImageLoader::loadImage(const std::string& aFilePathName)
         fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
         exit(1);
     }
-	
+
 	//plot the pixels of the PNG file
 	for(unsigned y = 0; y < h; y++)
 	{

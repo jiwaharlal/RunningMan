@@ -34,14 +34,13 @@ TEST_F(RMTest, CheckGameFieldNearestCell)
 	ASSERT_TRUE(gf.getNearestCell(FloatPosition(7, 4)) == CellPosition(3, 2));
 }
 
-/*TEST_F(RMTest, CheckPaths)
+TEST_F(RMTest, CheckPaths)
 {
-    #ifdef __linux__
-    std::string progPath("/home/Documents/Projects/rm");
-    #else
-    std::string
+    std::string path("root");
+    path = Paths::append(path, "subdir1");
+
     Paths::getInstance().setProgramPath()
-}*/
+}
 
 int main(int argc, char* argv[])
 {

@@ -14,6 +14,7 @@
 SdlBitmap::SdlBitmap(
     const std::string&		aFileName)
 {
+    std::cout << "Loading: " << aFileName << std::endl;
     mySurface = IMG_Load(aFileName.c_str());
 	//mySurface = ImageLoader::getInstance().loadImage(aFileName);
     if ( !mySurface )
