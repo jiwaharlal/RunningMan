@@ -36,10 +36,23 @@ TEST_F(RMTest, CheckGameFieldNearestCell)
 
 TEST_F(RMTest, CheckPaths)
 {
-    std::string path("root");
-    path = Paths::append(path, "subdir1");
-
-    Paths::getInstance().setProgramPath()
+    std::string path = Paths::append("root", "subdir1");
+	path = Paths::append(path, "subdir2");
+#ifdef __linux__
+	const std::string delimiter("/");
+	const std::string appRoot("/tmp/usr/rm/");
+	const std::string binaryPath(appRoot + "bin/rm");
+	const std::string imagesPath(appRoot + "data/img/");
+#else
+	const std::string delimiter("\\");
+	const std::string appRoot("d:\\games\\RunningMan\\");
+	const std::string binaryPath(appRoot + "bin\\RunningMan.exe");
+	const std::string imagesPath(appRoot + "data\\img\\");
+#endif
+	Paths::getInstance().setExePathName(binaryPath);
+	std::cout << Paths::appendDelimiter(Paths::getInstance().getImagesPath()) << std::endl << imagesPath << std::endl;
+	ASSERT_TRUE(Paths::appendDelimiter(Paths::getInstance().getImagesPath()) == imagesPath);
+	ASSERT_TRUE(path == std::string("root") + delimiter + "subdir1" + delimiter + "subdir2");
 }
 
 int main(int argc, char* argv[])
