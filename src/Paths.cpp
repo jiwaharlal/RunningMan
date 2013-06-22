@@ -1,6 +1,8 @@
 #include "Paths.h"
 
 #include <algorithm>
+#include <list>
+#include <iostream>
 
 using namespace std;
 
@@ -66,3 +68,45 @@ Paths::getImagesPath()
 
     return result;
 }
+
+std::string
+Paths::shortenPath(const std::string& aPath)
+{
+    std::list<std::string> pathElements;
+    size_t eltBegin = 0;
+    size_t delimiterPos = aPath.find_first_of(delimiters);
+    while (delimiterPos != std::string::npos)
+    {
+        pathElements.emplace_back(aPath.begin() + eltBegin, aPath.begin() + delimiterPos);
+        eltBegin = delimiterPos + 1;
+        delimiterPos = aPath.find_first_of(delimiters, eltBegin);
+    }
+    for (auto it = pathElements.begin(); it != pathElements.end(); )
+    {
+        if (*it == ".")
+        {
+            it = pathElements.erase(it);
+            continue;
+        }
+        if (*it == "..")
+        {
+            if (it != pathElements.begin())
+            {
+                auto prev = it;
+                --prev;
+                pathElements.erase(prev);
+                it = pathElements.erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
+    string result;
+    for (list<string>::iterator it = pathElements.begin(); it != pathElements.end(); ++it)
+    {
+        result += *it;
+        result += delimiter;
+    }
+    return result;
+}
+

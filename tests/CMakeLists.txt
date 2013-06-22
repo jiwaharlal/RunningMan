@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 
-foreach (constant CMAKE_BINARY_DIR CMAKE_CURRENT_BINARY_DIR CMAKE_CURRENT_SOURCE_DIR CMAKE_FILES_DIRECTORY 
+foreach (constant CMAKE_BINARY_DIR CMAKE_CURRENT_BINARY_DIR CMAKE_CURRENT_SOURCE_DIR CMAKE_FILES_DIRECTORY
 					CMAKE_SOURCE_DIR PROJECT_BINARY_DIR PROJECT_SOURCE_DIR)
 	if (DEFINED constant)
 		message(${constant}:)
@@ -18,7 +18,7 @@ endif (MSVC)
 
 set (PROJECT Test)
 
-add_subdirectory(gtest-1.6.0)
+#add_subdirectory(../libs/gtest-1.6.0)
 
 project (${PROJECT})
 
@@ -70,9 +70,9 @@ add_executable(${PROJECT} ${HEADERS} ${SOURCES})
 
 include_directories(${gtest_INCLUDE_DIR})
 target_link_libraries (${PROJECT} ${gtest_LIBRARY} SDL SDLmain SDL_image)
-ADD_DEPENDENCIES(${PROJECT} gtest gtest_main)
+#ADD_DEPENDENCIES(${PROJECT} gtest gtest_main)
 
-link_directories(${CMAKE_CURRENT_BINARY_DIR}/gtest-1.6.0)
+#link_directories(${CMAKE_CURRENT_BINARY_DIR}/../libs/gtest-1.6.0)
 target_link_libraries(${PROJECT} gtest)
 
 add_definitions(-D_VARIADIC_MAX=10)
@@ -103,16 +103,16 @@ if (MSVC)
                 ${LIBS_ROOT}/SDL_image-1.2.12/lib/x86/libwebp-2.dll
                 ${LIBS_ROOT}/SDL_image-1.2.12/lib/x86/zlib1.dll)
         message(${dllPathName})
-        
+
 		file(COPY ${dllPathName} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR})
-		
+
 		#ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
         #            POST_BUILD
         #            COMMAND ${CMAKE_COMMAND} -E copy ${dllPathName} ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR})
     endforeach(dllPathName)
 endif (MSVC)
 
-ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
-			POST_BUILD
-			COMMAND ${BIN_NAME}
-)
+#ADD_CUSTOM_COMMAND(TARGET ${PROJECT}
+#			POST_BUILD
+#			COMMAND ${BIN_NAME}
+#)

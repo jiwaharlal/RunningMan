@@ -41,17 +41,16 @@ TEST_F(RMTest, CheckPaths)
 #ifdef __linux__
 	const std::string delimiter("/");
 	const std::string appRoot("/tmp/usr/rm/");
-	const std::string binaryPath(appRoot + "bin/rm");
-	const std::string imagesPath(appRoot + "data/img/");
+	const std::string binaryPath(appRoot + "rm");
+	const std::string imagesPath(appRoot + "data/../data/./img/");
 #else
 	const std::string delimiter("\\");
 	const std::string appRoot("d:\\games\\RunningMan\\");
 	const std::string binaryPath(appRoot + "bin\\RunningMan.exe");
-	const std::string imagesPath(appRoot + "data\\img\\");
+	const std::string imagesPath(appRoot + "data\\..\\data\\.\\img\\");
 #endif
 	Paths::getInstance().setExePathName(binaryPath);
-	std::cout << Paths::appendDelimiter(Paths::getInstance().getImagesPath()) << std::endl << imagesPath << std::endl;
-	ASSERT_TRUE(Paths::appendDelimiter(Paths::getInstance().getImagesPath()) == imagesPath);
+	ASSERT_TRUE(Paths::shortenPath(Paths::appendDelimiter(Paths::getInstance().getImagesPath())) == Paths::shortenPath(imagesPath));
 	ASSERT_TRUE(path == std::string("root") + delimiter + "subdir1" + delimiter + "subdir2");
 }
 
