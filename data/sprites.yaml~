@@ -1,0 +1,26 @@
+- name: green_tree
+  image_file: arbres.png
+  type: static
+  rectangle:
+    left: 0
+    top: 0
+    width: 96
+    height: 128
+  origin:
+    x: 48
+    y: 100
+- name: young-man
+  image_file: man01.png
+  type: movable
+  rectangle:
+    left: 0
+    top: 0
+    width: 48
+    height: 96
+  origin:
+    x: 24
+    y: 90
+  direction_step: 45
+  start_direction: 135
+  frames: 8
+  frame_duration: 0.1

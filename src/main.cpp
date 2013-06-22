@@ -15,7 +15,7 @@
 #include "GameViewFrame.h"
 #include "Paths.h"
 #include "SdlBitmap.h"
-#include "Sprite.h"
+#include "StaticSprite.h"
 #include "SpriteProvider.h"
 
 #include "lodepng.h"

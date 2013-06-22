@@ -1,6 +1,7 @@
 #include "SpriteProvider.h"
 
 #include "SpriteInfoProvider.h"
+#include "StaticSprite.h"
 
 SpriteProvider::SpriteProvider()
     : myInfoProvider(new SpriteInfoProvider())
@@ -19,7 +20,7 @@ SharedPtr(Sprite)
 SpriteProvider::getSpriteForSurface(SurfaceElement aSurface)
 {
     SpriteInfo info = myInfoProvider->getSpriteInfo();
-    SharedPtr(Sprite) sprite(new Sprite(info.imgFileName, info.rect, info.origin));
+    SharedPtr(Sprite) sprite(new StaticSprite(info.imgFileName, info.rect, info.origin));
 
     return sprite;
 }

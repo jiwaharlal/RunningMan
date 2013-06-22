@@ -28,11 +28,13 @@ set (SOURCES
     ${PROJECT_SOURCE_DIR}/../src/BitmapProvider.cpp
 	${PROJECT_SOURCE_DIR}/../src/GameField.cpp
     ${PROJECT_SOURCE_DIR}/../src/GameViewFrame.cpp
+    ${PROJECT_SOURCE_DIR}/../src/MovableSprite.cpp
     ${PROJECT_SOURCE_DIR}/../src/Paths.cpp
 	${PROJECT_SOURCE_DIR}/../src/SdlBitmap.cpp
     ${PROJECT_SOURCE_DIR}/../src/Sprite.cpp
 	${PROJECT_SOURCE_DIR}/../src/SpriteInfoProvider.cpp
 	${PROJECT_SOURCE_DIR}/../src/SpriteProvider.cpp
+    ${PROJECT_SOURCE_DIR}/../src/StaticSprite.cpp
     )
 
 set (HEADERS
@@ -40,11 +42,13 @@ set (HEADERS
     ${PROJECT_SOURCE_DIR}/../src/BitmapProvider.h
     ${PROJECT_SOURCE_DIR}/../src/GameField.h
     ${PROJECT_SOURCE_DIR}/../src/GameViewFrame.h
+    ${PROJECT_SOURCE_DIR}/../src/MovableSprite.h
     ${PROJECT_SOURCE_DIR}/../src/Paths.h
 	${PROJECT_SOURCE_DIR}/../src/SdlBitmap.h
     ${PROJECT_SOURCE_DIR}/../src/Sprite.h
 	${PROJECT_SOURCE_DIR}/../src/SpriteInfoProvider.h
 	${PROJECT_SOURCE_DIR}/../src/SpriteProvider.h
+    ${PROJECT_SOURCE_DIR}/../src/StaticSprite.h
     )
 
 if (MSVC)

@@ -19,11 +19,13 @@ set (HEADERS
 	GameViewFrame.h
 	ImageLoader.h
 	#LodePngImageLoader.h
+	MovableSprite.h
 	Paths.h
 	SdlBitmap.h
 	Sprite.h
 	SpriteInfoProvider.h
     SpriteProvider.h
+    StaticSprite.h
     Surface.h
 	)
 
@@ -35,11 +37,13 @@ set (SOURCES
 	ImageLoader.cpp
 	#LodePngImageLoader.cpp
 	main.cpp
+	MovableSprite.cpp
 	Paths.cpp
 	SdlBitmap.cpp
 	Sprite.cpp
 	SpriteInfoProvider.cpp
 	SpriteProvider.cpp
+	StaticSprite.cpp
 	)
 
 set (LIBS
