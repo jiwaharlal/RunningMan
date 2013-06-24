@@ -23,6 +23,35 @@
 using namespace std;
 //namespace fs = boost::filesystem;
 
+class Base{
+public:
+    virtual void base() { std::cout << "in Base::base" << endl;}
+};
+
+class Derived: public Base{
+public:
+    virtual void base() override {
+        std::cout << "in Derived::base" << endl;
+    }
+    void derived() {
+        std::cout << "in Derived::derived" << endl;
+    }
+};
+
+class Provider{
+public:
+    Provider() {
+        myObjects.push_back(SharedPtr(Base)(new Base));
+        myObjects.push_back(SharedPtr(Derived)(new Derived));
+    }
+    void getObect(int aId, Base*& aOutObject) {
+        aOutObject = myObjects[aId % 2].get();
+    }
+private:
+    std::vector<SharedPtr(Base) > myObjects;
+};
+
+
 int show(const char* filename)
 {
   std::cout << "showing " << filename << std::endl;
@@ -155,6 +184,15 @@ void showSdlSurface(/*const std::string& aFileName*/)
 
 int main(int argc, char* argv[])
 {
+    Provider provider;
+    Base* der;
+    provider.getObect(1, der);
+    der->base();
+    SharedPtr(Base) b = SharedPtr(Derived)(new Derived);
+    SharedPtr(Derived)& d = reinterpret_cast<SharedPtr(Derived)&>(b);
+    d->derived();
+    return 0;
+
     std::string path("root");
     path = Paths::append(path, "subdir1");
     std::cout << path << std::endl;

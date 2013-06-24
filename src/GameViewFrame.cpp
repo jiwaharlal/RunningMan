@@ -34,6 +34,13 @@ GameViewFrame::setPosition(const FloatPosition& aLeftTop)
 void
 GameViewFrame::render(SDL_Surface* aSurface)
 {
+	/*renderSurface();
+
+	fillObjectRenderBuffer();
+	searchAndInsertMovableObjects();
+	renderObjects();
+	*/
+
 	//defineRenderRange();
 	CellPosition leftTopCell = myField.getNearestCell(myLeftTop);
 	Position screenPos;

@@ -1,0 +1,10 @@
+---
+width: 10
+height: 10
+cells:
+  - surface: sand
+  - surface: grass
+  - surface: sand
+  - surface: grass
+    object: green_tree
+  - surface:

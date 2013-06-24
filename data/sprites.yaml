@@ -1,3 +1,4 @@
+---
 - name: green_tree
   image_file: arbres.png
   type: static

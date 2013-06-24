@@ -9,8 +9,8 @@
   origin:
     x: 48
     y: 100
-- name: young-man
-  image_file: man01.png
+- name: girl
+  image_file: human-f.png
   type: movable
   rectangle:
     left: 0

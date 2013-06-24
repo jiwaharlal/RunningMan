@@ -9,6 +9,8 @@ public:
 
     //boost::filesystem::path     getImagesPath();
     std::string                 getImagesPath();
+    std::string                 getMapsPath();
+    std::string                 getDataRootPath();
     void                        setExePathName(const std::string& aExePathName);
     static std::string          append(const std::string& aPath, const std::string& aPathEntry);
     static std::string          appendDelimiter(const std::string& aPath);

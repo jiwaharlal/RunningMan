@@ -16,6 +16,8 @@ else (MSVC)
 	add_definitions(-std=c++11 -D_VARIADIC_MAX=10)
 endif (MSVC)
 
+add_definitions(-D__TEST__)
+
 set (PROJECT Test)
 
 #add_subdirectory(../libs/gtest-1.6.0)
@@ -79,7 +81,6 @@ target_link_libraries (${PROJECT} ${gtest_LIBRARY} SDL SDLmain SDL_image)
 #link_directories(${CMAKE_CURRENT_BINARY_DIR}/../libs/gtest-1.6.0)
 target_link_libraries(${PROJECT} gtest)
 
-add_definitions(-D_VARIADIC_MAX=10)
 
 if (MSVC)
 	# static link with runtime library
@@ -114,6 +115,9 @@ if (MSVC)
         #            POST_BUILD
         #            COMMAND ${CMAKE_COMMAND} -E copy ${dllPathName} ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR})
     endforeach(dllPathName)
+else (MSVC)
+	find_package(Boost 1.53 COMPONENTS regex REQUIRED)
+	target_link_libraries(${PROJECT} ${Boost_LIBRARIES})
 endif (MSVC)
 
 #ADD_CUSTOM_COMMAND(TARGET ${PROJECT}

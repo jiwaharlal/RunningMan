@@ -59,14 +59,23 @@ Paths::subtractLastEntry(const std::string& aPath)
 std::string
 Paths::getImagesPath()
 {
+    return append(getDataRootPath(), "img");
+}
+
+std::string
+Paths::getMapsPath()
+{
+    return append(getDataRootPath(), "maps");
+}
+
+std::string
+Paths::getDataRootPath()
+{
     std::string result(myProgramPath);
 #ifndef __linux__
 	result = append(result, "..");
 #endif
-    result = append(result, "data");
-    result = append(result, "img");
-
-    return result;
+    return shortenPath(append(result, "data"));
 }
 
 std::string

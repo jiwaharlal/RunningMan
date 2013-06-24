@@ -2,19 +2,36 @@
 
 #include "BasicStructs.h"
 
-struct SpriteInfo
+struct StaticSpriteInfo
 {
     std::string     imgFileName;
     Rect            rect;
     Position        origin;
 };
 
+struct MovableSpriteInfo
+{
+    std::string     imgFileName;
+    Size            rectSize;
+    Position        origin;
+    float           frameDuration;
+    int             frameCount;
+    int             directionStep;
+};
+
 class SpriteInfoProvider
 {
 public:
-                SpriteInfoProvider();
+                        SpriteInfoProvider();
 
-    SpriteInfo  getSpriteInfo();
+    SpriteInfo          getSpriteInfo();
+    StaticSpriteInfo    getStaticSpriteInfo(
+                            const std::string&      aSpriteId);
+    MovableSpriteInfo   getMovableSpriteInfo(
+                            const std::string&      aSpriteId);
 private:
+    void                readSpriteConfig();
 
+    std::map<std::string, StaticSpriteInfo>     myStaticConfigs;
+    std::map<std::string, MovableSpriteInfo>    myMovableConfigs;
 };

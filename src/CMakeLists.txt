@@ -68,7 +68,7 @@ if(MSVC)
 else(MSVC)
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/lodepng/include)
 
-	find_package(Boost 1.53 COMPONENTS system filesystem REQUIRED)
+	find_package(Boost 1.53 COMPONENTS regex REQUIRED)
 	if (Boost_FOUND)
 		MESSAGE(boost found)
 	endif (Boost_FOUND)

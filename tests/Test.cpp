@@ -54,6 +54,22 @@ TEST_F(RMTest, CheckPaths)
 	ASSERT_TRUE(path == std::string("root") + delimiter + "subdir1" + delimiter + "subdir2");
 }
 
+TEST_F(RMTest, CheckGameField)
+{
+    Size size = readSize("height: 8 width: 67");
+    ASSERT_TRUE(size.height == 8 && size.width == 67);
+    GameField::FieldCell cell = readCell("surface: sand object: green_tree");
+    ASSERT_TRUE(cell.surface == "sand" && cell.object == "green_tree");
+    cell = readCell("surface: sand42 object: green_tree_24");
+    ASSERT_TRUE(cell.surface == "sand42" && cell.object == "green_tree_24");
+
+    std::string map("height: 2 width: 2\nsurface: sand\nsurface: grass\nsurface: sand\nsurface: sand object: tree");
+    std::stringstream mapStream(map);
+    GameField field(mapStream);
+    const GameField::FieldCell& cellRef = field.getCell(CellPosition(1, 1));
+    ASSERT_TRUE(cellRef.surface == "sand" && cellRef.object == "tree");
+}
+
 int main(int argc, char* argv[])
 {
 	::testing::InitGoogleTest(&argc, argv);
