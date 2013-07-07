@@ -17,6 +17,7 @@ struct MovableSpriteInfo
     float           frameDuration;
     int             frameCount;
     int             directionStep;
+    int             directionStart;
 };
 
 class SpriteInfoProvider
